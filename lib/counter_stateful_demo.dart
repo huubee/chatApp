@@ -6,39 +6,52 @@ class CounterStateful extends StatefulWidget {
   const CounterStateful({Key? key, required this.buttonColor}) : super(key: key);
 
   @override
-  State<CounterStateful> createState() {
-    State<CounterStateful> stateClassAssociatedWithThisWidget =
-        _CounterStatefulState();
-    return stateClassAssociatedWithThisWidget;
-  }
+  State<CounterStateful> createState() => _CounterStatefulState();
 }
 
 class _CounterStatefulState extends State<CounterStateful> {
   int counter = 0;
 
   void incrementCounter() {
-    setState(
-      () {
-        counter++;
-      },
-    );
-    print(counter);
+    // This makes sure to not perform setState on an 'unmounted' state to avoid real-time crashes
+    if (mounted) {
+      setState(
+            () {
+          counter++;
+        },
+      );
+      print(counter);
+    }
   }
 
   void decrementCounter() {
-    setState(() {
-      counter--;
-    });
-    print(counter);
+    if (mounted) {
+      setState(() {
+        counter--;
+      });
+      print(counter);
+    }
   }
 
   void resetCounter() {
-    setState(
-      () {
-        counter = 0;
-      },
-    );
-    print(counter);
+    if (mounted) {
+      setState(
+            () {
+          counter = 0;
+        },
+      );
+      print(counter);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
