@@ -26,7 +26,7 @@ class ChatPage extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-                itemCount: 7,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return ChatBubble(
                       alignment: index % 2 == 0
