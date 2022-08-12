@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   void loginUser() {
+    print(userNameController.text);
+    print(passwordController.text);
     print('login successful');
   }
+
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +40,48 @@ class LoginPage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.8),
               ),
-              Image.network(
-                'https://static.scientificamerican.com/sciam/cache/file/4F73FD83-3377-42FC-915AD56BD66159FE_source.jpg',
-                width: 200,
+              // Image.network(
+              //   'https://static.scientificamerican.com/sciam/cache/file/4F73FD83-3377-42FC-915AD56BD66159FE_source.jpg',
+              //   width: 200,
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: TextField(
+                  controller: userNameController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your username',
+                    hintStyle: TextStyle(fontSize: 18.0, color: Colors.grey),
+                    border: OutlineInputBorder(),
+                  ),
+                  style: TextStyle(fontSize: 21.0),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your password',
+                    hintStyle: TextStyle(fontSize: 18.0, color: Colors.grey),
+                    border: OutlineInputBorder(),
+                  ),
+                  style: TextStyle(fontSize: 21.0),
+                ),
               ),
               ElevatedButton(
                 onPressed: loginUser,
                 child: Text(
-                  'Click Me!',
+                  'Login',
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w300),
                 ),
               ),
               InkWell(
                 splashColor: Colors.redAccent,
-                onDoubleTap: (){
+                onDoubleTap: () {
                   print('double tapped');
                 },
-                onLongPress: (){
+                onLongPress: () {
                   print('onlongpress');
                 },
                 onTap: () {
