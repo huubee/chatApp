@@ -29,7 +29,7 @@ class ChatInput extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
-              textCapitalization: TextCapitalization.words,
+              textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.multiline,
               maxLines: 6,
               minLines: 1,

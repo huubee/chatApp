@@ -1,3 +1,4 @@
+import 'package:chat_app/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -5,10 +6,17 @@ class LoginPage extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  void loginUser() {
+  void loginUser(context) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       print(userNameController.text);
       print(passwordController.text);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatPage(),
+        ),
+      );
       print('login successful');
     } else {
       print('Login failed');
@@ -66,6 +74,7 @@ class LoginPage extends StatelessWidget {
                         } else if (value != null && value.isEmpty) {
                           return 'Please enter your username';
                         }
+                        return null;
                       },
                       controller: userNameController,
                       decoration: InputDecoration(
@@ -97,14 +106,18 @@ class LoginPage extends StatelessWidget {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: loginUser,
+                onPressed: () {
+                  loginUser(context);
+                  userNameController.clear();
+                  passwordController.clear();
+
+                },
                 child: Text(
                   'Login',
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w300),
                 ),
               ),
-              InkWell(
-                splashColor: Colors.redAccent,
+              GestureDetector(
                 onDoubleTap: () {
                   print('double tapped');
                 },
