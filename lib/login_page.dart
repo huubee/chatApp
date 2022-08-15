@@ -14,7 +14,9 @@ class LoginPage extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ChatPage(),
+          builder: (context) => ChatPage(
+            username: userNameController.text,
+          ),
         ),
       );
       print('login successful');
@@ -83,7 +85,6 @@ class LoginPage extends StatelessWidget {
                             TextStyle(fontSize: 18.0, color: Colors.grey),
                         border: OutlineInputBorder(),
                       ),
-                      style: TextStyle(fontSize: 21.0),
                     ),
                     SizedBox(
                       height: 20.0,
@@ -97,7 +98,6 @@ class LoginPage extends StatelessWidget {
                             TextStyle(fontSize: 18.0, color: Colors.grey),
                         border: OutlineInputBorder(),
                       ),
-                      style: TextStyle(fontSize: 21.0),
                     ),
                   ],
                 ),
@@ -108,9 +108,8 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   loginUser(context);
-                  userNameController.clear();
-                  passwordController.clear();
-
+                  // userNameController.clear();
+                  // passwordController.clear();
                 },
                 child: Text(
                   'Login',
