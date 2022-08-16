@@ -1,6 +1,7 @@
 import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -9,19 +10,21 @@ class LoginPage extends StatelessWidget {
 
   void loginUser(context) {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      print(userNameController.text);
-      print(passwordController.text);
+      // print(userNameController.text);
+      // print(passwordController.text);
 
       Navigator.pushReplacementNamed(context, '/chat',
-          arguments: '${userNameController.text}');
-      print('login successful');
+          arguments: userNameController.text);
+      // print('login successful');
     } else {
-      print('Login failed');
+      // print('Login failed');
     }
   }
 
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  static const _mainUrl = 'https://www.huijbregts-bouw.nl';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
+              const Text(
                 'Let\'s sign you in',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -42,7 +45,7 @@ class LoginPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.8),
               ),
-              Text(
+              const Text(
                 'Welcome back!\nYou\'ve been missed...',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -101,7 +104,7 @@ class LoginPage extends StatelessWidget {
                   userNameController.clear();
                   passwordController.clear();
                 },
-                child: Text(
+                child: const Text(
                   'Login',
                   style: TextStyle(
                     fontSize: 30.0,
@@ -111,24 +114,23 @@ class LoginPage extends StatelessWidget {
               ),
               verticalSpacing(24.0),
               GestureDetector(
-                onDoubleTap: () {
-                  print('double tapped');
-                },
-                onLongPress: () {
-                  print('onlongpress');
-                },
-                onTap: () {
+                onDoubleTap: () {},
+                onLongPress: () {},
+                onTap: () async {
+                  // ignore: deprecated_member_use
+                  if (!await launch(_mainUrl)) {
+                    throw 'Could not launch URL';
+                  }
                   // to do open browser to URL
-                  print('textarea clicked!');
                 },
                 child: Column(
-                  children: [
+                  children: const [
                     Text(
                       'Find us on',
                       style: TextStyle(fontSize: 25.0),
                     ),
                     Text(
-                      'https://www.huijbregts-bouw.nl',
+                      _mainUrl,
                       style: TextStyle(fontSize: 20.0),
                     ),
                   ],

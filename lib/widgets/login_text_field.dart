@@ -28,7 +28,7 @@ class LoginTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: ThemeTextStyle.loginTextFieldStyle,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
       ),
     );
   }

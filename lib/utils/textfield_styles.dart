@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeTextStyle {
   static TextStyle loginTextFieldStyle = GoogleFonts.alike(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       fontSize: 18.0,
       color: Colors.grey,
     ),
