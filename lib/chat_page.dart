@@ -3,12 +3,10 @@ import 'package:chat_app/widgets/chat_input.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
-
   const ChatPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final username = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +18,8 @@ class ChatPage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.popAndPushNamed(context,
+                    '/'); //Navigator.pushReplacementNamed(context, '/'); can also be used
                 print('Logout icon pressed!');
               },
               icon: Icon(Icons.logout))
