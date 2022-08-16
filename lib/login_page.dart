@@ -51,10 +51,11 @@ class LoginPage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.8),
               ),
-              // Image.network(
-              //   'https://static.scientificamerican.com/sciam/cache/file/4F73FD83-3377-42FC-915AD56BD66159FE_source.jpg',
-              //   width: 200,
-              // ),
+              verticalSpacing(10.0),
+              Image.asset(
+                'assets/illustration.png',
+                height: 100.0,
+              ),
               verticalSpacing(24.0),
               Form(
                 key: _formKey,
