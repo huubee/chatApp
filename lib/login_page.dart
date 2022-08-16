@@ -1,3 +1,4 @@
+import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -54,9 +55,7 @@ class LoginPage extends StatelessWidget {
               //   'https://static.scientificamerican.com/sciam/cache/file/4F73FD83-3377-42FC-915AD56BD66159FE_source.jpg',
               //   width: 200,
               // ),
-              SizedBox(
-                height: 20.0,
-              ),
+              verticalSpacing(24.0),
               Form(
                 key: _formKey,
                 child: Column(
@@ -75,9 +74,7 @@ class LoginPage extends StatelessWidget {
                         return null;
                       },
                     ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
+                    verticalSpacing(24.0),
                     LoginTextField(
                       controller: passwordController,
                       hintText: 'Enter your password',
@@ -96,9 +93,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              verticalSpacing(10.0),
               ElevatedButton(
                 onPressed: () {
                   loginUser(context);
@@ -107,9 +102,13 @@ class LoginPage extends StatelessWidget {
                 },
                 child: Text(
                   'Login',
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w300),
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
+              verticalSpacing(24.0),
               GestureDetector(
                 onDoubleTap: () {
                   print('double tapped');
