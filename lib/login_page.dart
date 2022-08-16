@@ -1,3 +1,4 @@
+import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -10,11 +11,8 @@ class LoginPage extends StatelessWidget {
       print(userNameController.text);
       print(passwordController.text);
 
-      Navigator.pushReplacementNamed(
-        context,
-        '/chat',
-        arguments: '${userNameController.text}'
-      );
+      Navigator.pushReplacementNamed(context, '/chat',
+          arguments: '${userNameController.text}');
       print('login successful');
     } else {
       print('Login failed');
@@ -63,7 +61,9 @@ class LoginPage extends StatelessWidget {
                 key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
+                    LoginTextField(
+                      controller: userNameController,
+                      hintText: 'Enter your username',
                       validator: (value) {
                         if (value != null &&
                             value.isNotEmpty &&
@@ -74,26 +74,24 @@ class LoginPage extends StatelessWidget {
                         }
                         return null;
                       },
-                      controller: userNameController,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your username',
-                        hintStyle:
-                            TextStyle(fontSize: 18.0, color: Colors.grey),
-                        border: OutlineInputBorder(),
-                      ),
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    TextFormField(
+                    LoginTextField(
                       controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your password',
-                        hintStyle:
-                            TextStyle(fontSize: 18.0, color: Colors.grey),
-                        border: OutlineInputBorder(),
-                      ),
+                      hintText: 'Enter your password',
+                      hasAsterisks: true,
+                      validator: (value) {
+                        if (value != null &&
+                            value.isNotEmpty &&
+                            value.length < 6) {
+                          return 'Your password should be 6 characters or more!';
+                        } else if (value != null && value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
@@ -104,8 +102,8 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   loginUser(context);
-                  // userNameController.clear();
-                  // passwordController.clear();
+                  userNameController.clear();
+                  passwordController.clear();
                 },
                 child: Text(
                   'Login',
