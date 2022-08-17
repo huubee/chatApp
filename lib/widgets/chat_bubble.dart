@@ -1,10 +1,11 @@
+import 'package:chat_app/models/chat_message_entity.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
-  final String message;
+  final ChatMessageEntity entity;
   final Alignment alignment;
 
-  const ChatBubble({Key? key, required this.alignment, required this.message})
+  const ChatBubble({Key? key, required this.entity, required this.alignment})
       : super(key: key);
 
   @override
@@ -17,24 +18,7 @@ class ChatBubble extends StatelessWidget {
       alignment: alignment,
       child: Container(
         width: containerWidth,
-        child: Padding(
-          padding: EdgeInsets.all(textPadding),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '$message',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: textPadding),
-              ),
-              Image.network(
-                  'https://static.scientificamerican.com/sciam/cache/file/4F73FD83-3377-42FC-915AD56BD66159FE_source.jpg')
-            ],
-          ),
-        ),
-        margin: EdgeInsets.all(50.0),
+        margin: const EdgeInsets.all(50.0),
         decoration: BoxDecoration(
             color: Colors.cyan,
             borderRadius: BorderRadius.only(
@@ -42,6 +26,25 @@ class ChatBubble extends StatelessWidget {
               topRight: Radius.circular(borderRadius),
               bottomLeft: Radius.circular(borderRadius),
             )),
+        child: Padding(
+          padding: EdgeInsets.all(textPadding),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                entity.text,
+                style: const TextStyle(fontSize: 20.0, color: Colors.white),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: textPadding),
+              ),
+              if(entity.imageUrl != null) Image.network(
+                '${entity.imageUrl}',
+                height: 150.0,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
