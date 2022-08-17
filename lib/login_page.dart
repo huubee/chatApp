@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(25.0),
+          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
                 'assets/illustration.png',
                 height: 100.0,
               ),
-              verticalSpacing(24.0),
+              verticalSpacing(10.0),
               Form(
                 key: _formKey,
                 child: Column(
@@ -79,7 +79,7 @@ class LoginPage extends StatelessWidget {
                         return null;
                       },
                     ),
-                    verticalSpacing(24.0),
+                    verticalSpacing(10.0),
                     LoginTextField(
                       controller: passwordController,
                       hintText: 'Enter your password',
@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              verticalSpacing(24.0),
+              verticalSpacing(10.0),
               GestureDetector(
                 onDoubleTap: () {},
                 onLongPress: () {},
