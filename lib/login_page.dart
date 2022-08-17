@@ -1,6 +1,7 @@
 import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatelessWidget {
@@ -136,10 +137,46 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SocialMediaButton.twitter(
+                    onTap: () async {
+                      // ignore: deprecated_member_use
+                      if (!await launch('https://www.twitter.com')) {
+                        throw 'Could not launch URL';
+                      }
+                      // to do open browser to URL
+                    },
+                  ),
+                  SocialMediaButton.facebook(
+                    onTap: () async {
+                      // ignore: deprecated_member_use
+                      if (!await launch('https://www.facebook.com')) {
+                        throw 'Could not launch URL';
+                      }
+                      // to do open browser to URL
+                    },
+                  ),
+                  SocialMediaButton.linkedin(
+                    onTap: () {
+                      _launchUrl();
+                    }
+                  ),
+                ],
+              )
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+final Uri _url = Uri.parse('https://www.linkedin.com');
+
+Future<void> _launchUrl() async {
+  if (!await launchUrl(_url)) {
+    throw 'Could not launch $_url';
   }
 }
