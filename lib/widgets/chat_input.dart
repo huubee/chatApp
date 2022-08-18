@@ -1,65 +1,65 @@
+import 'package:chat_app/models/chat_message_entity.dart';
 import 'package:flutter/material.dart';
 
 class ChatInput extends StatelessWidget {
-  ChatInput({Key? key}) : super(key: key);
+  final Function(ChatMessageEntity) onSubmit;
 
-  final _chatMessageControler = TextEditingController();
+  ChatInput({Key? key, required this.onSubmit}) : super(key: key);
 
-  void onSendButtonPressed(value){
-    print('message: ${_chatMessageControler.text}');
-    _chatMessageControler.clear();
-    print('TextField cleared');
+  final chatMessageController = TextEditingController();
+
+  void onSendButtonPressed() {
+    //print('ChatMessage: ${chatMessageController.text}');
+    //to do: Add this new message to the default list
+
+    final newChatMessage = ChatMessageEntity(
+      text: chatMessageController.text,
+      id: '244',
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      author: Author(userName: 'Hubert'));
+
+    onSubmit(newChatMessage);// chatMessageController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.0,
+      height: 100.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: () {
-              print('Add image');
-            },
-            icon: Icon(
+            onPressed: () {},
+            icon: const Icon(
               Icons.image,
               color: Colors.white,
             ),
           ),
           Expanded(
             child: TextField(
-              textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.multiline,
               maxLines: 6,
               minLines: 1,
-              controller: _chatMessageControler,
-              style: TextStyle(color: Colors.white, fontSize: 22.0),
-              decoration: InputDecoration(
+              controller: chatMessageController,
+              textCapitalization: TextCapitalization.sentences,
+              style: const TextStyle(color: Colors.white, fontSize: 22.0),
+              decoration: const InputDecoration(
                   hintText: 'Enter your message here!',
-                  hintStyle:
-                      TextStyle(color: Colors.deepPurple, fontSize: 17.0),
+                  hintStyle: TextStyle(color: Colors.deepPurple, fontSize: 17.0),
                   border: InputBorder.none),
-            ),
-          ),
+            )),
           IconButton(
-            onPressed: () {
-              onSendButtonPressed(_chatMessageControler.text);
-              print('Message sent');
-            },
-            icon: Icon(
+            onPressed: onSendButtonPressed,
+            icon: const Icon(
               Icons.send,
               color: Colors.white,
             ),
           ),
         ],
       ),
-      decoration: BoxDecoration(
-        color: Colors.cyan,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(12.0),
-        ),
-      ),
+      decoration: const BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
     );
   }
 }

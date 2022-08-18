@@ -22,7 +22,7 @@
     "createdAt": 1598438599000,
     "id": "10003",
     "text": "Heyy good morning to you too! It has been pretty great! \n\nThe weather has been nice!?",
-    "imageUrl": "https://pixelford.com/api/img/small/Clouds in a blue sky_LIL_134208.jpg"
+    "image": "https://pixelford.com/api/img/small/Clouds in a blue sky_LIL_134208.jpg"
   },
   {
     "author": {
@@ -39,7 +39,7 @@
     "createdAt": 1598438599000,
     "id": "10004",
     "text": "Pixel really misses you btw!",
-    "imageUrl": "https://pixelford.com/api/img/small/Autumn leaves_LIL_134164.jpg"
+    "image": "https://pixelford.com/api/img/small/Autumn leaves_LIL_134164.jpg"
   },
   {
     "author": {

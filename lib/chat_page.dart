@@ -15,20 +15,28 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   //initial state of messages
-  List<ChatMessageEntity> _message = [];
+  List<ChatMessageEntity> _messages = [];
 
   _loadInitialMessages() async {
-    final response = await rootBundle.loadString('assets/mock_messages.json',);
+    final response = await rootBundle.loadString('assets/mock_messages.json');
 
     final List<dynamic> decodedList = jsonDecode(response) as List;
-    final List<ChatMessageEntity> _chatMessages = decodedList.map((listItem) {
+
+    final List<ChatMessageEntity> chatMessages = decodedList.map((listItem) {
       return ChatMessageEntity.fromJson(listItem);
     }).toList();
 
+    //print(chatMessages.length);
+
     //final state of messages
     setState(() {
-      _message = _chatMessages;
+      _messages = chatMessages;
     });
+  }
+
+  onMessageSent(ChatMessageEntity entity) {
+    _messages.add(entity);
+    setState(() {});
   }
 
   @override
@@ -39,22 +47,17 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    _loadInitialMessages();
     final username = ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Center(
-          child: Text('Hello $username'),
-        ),
+        title: Text('Hello $username'),
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.popAndPushNamed(
-                  context,
-                  '/',
-                ); //Navigator.pushReplacementNamed(context, '/'); can also be used
+                Navigator.pushReplacementNamed(context, '/'); //Navigator.popAndPushNamed(context, '/'); can also be used
                 // print('Logout icon pressed!');
               },
               icon: const Icon(Icons.logout))
@@ -64,17 +67,18 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: ListView.builder(
-                itemCount: _message.length,
+                itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   return ChatBubble(
-                    alignment: _message[index].author.userName == 'Hubert'
+                    alignment:
+                    _messages[index].author.userName == 'Hubert'
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
-                    entity: _message[index],
-                  );
-                }),
+                    entity: _messages[index]);
+                })),
+          ChatInput(
+            onSubmit: onMessageSent,
           ),
-          ChatInput(),
         ],
       ),
     );
