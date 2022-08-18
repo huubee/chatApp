@@ -12,12 +12,11 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     double borderRadius = 12.0;
     double textPadding = 12.0;
-    double containerWidth = 200.0;
 
     return Align(
       alignment: alignment,
       child: Container(
-        width: containerWidth,
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.6),
         margin: const EdgeInsets.all(50.0),
         decoration: BoxDecoration(
             color: Colors.cyan,
@@ -43,11 +42,10 @@ class ChatBubble extends StatelessWidget {
               // Padding(
               //   padding: EdgeInsets.only(bottom: textPadding),
               // ),
-              Text(entity.createdAt.toString()),
               if (entity.imageUrl != null)
                 Image.network(
                   '${entity.imageUrl}',
-                  height: 150.0,
+                  // height: 150.0,
                 ),
             ],
           ),
