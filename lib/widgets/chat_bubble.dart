@@ -33,21 +33,22 @@ class ChatBubble extends StatelessWidget {
             children: [
               Text(
                 entity.author.userName == 'Hubert'
-                    ? 'You'
+                    ? 'Me'
                     : entity.author.userName,
               ),
               Text(
                 entity.text,
                 style: const TextStyle(fontSize: 20.0, color: Colors.white),
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: textPadding),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(bottom: textPadding),
+              // ),
+              Text(entity.createdAt.toString()),
               if (entity.imageUrl != null)
                 Image.network(
                   '${entity.imageUrl}',
                   height: 150.0,
-                )
+                ),
             ],
           ),
         ),
