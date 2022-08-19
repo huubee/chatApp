@@ -48,7 +48,7 @@ class _ChatPageState extends State<ChatPage> {
       final List<PixelfordImage> imageList = decodedList.map((listItem) {
         return PixelfordImage.fromJson(listItem);
       }).toList();
-      print(imageList[0].urlFullSize);
+      print(imageList[1].urlFullSize);
     }
     else {
       print('Something went wrong. HTTP code: ${response.statusCode}');
