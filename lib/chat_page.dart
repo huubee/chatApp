@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:chat_app/models/chat_message_entity.dart';
+import 'package:chat_app/repo/image_repository.dart';
 import 'package:chat_app/models/image_model.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:chat_app/widgets/chat_input.dart';
@@ -38,27 +38,11 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {});
   }
 
-  Future<List<PixelfordImage>> _getNetworkImages() async {
-    var endpointUrl = Uri.parse('https://pixelford.com/api2/images');
-    final response = await http.get(endpointUrl);
-
-    if (response.statusCode == 200) {
-      final List<dynamic> decodedList = jsonDecode(response.body) as List;
-
-      final List<PixelfordImage> imageList = decodedList.map((listItem) {
-        return PixelfordImage.fromJson(listItem);
-      }).toList();
-      print(imageList[1].urlFullSize);
-      return imageList;
-    } else {
-      throw Exception('Connection not successful');
-    }
-  }
+  final ImageRepository _imageRepo = ImageRepository();
 
   @override
   void initState() {
     _loadInitialMessages();
-    _getNetworkImages();
     super.initState();
   }
 
@@ -84,7 +68,7 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         children: [
           FutureBuilder<List<PixelfordImage>>(
-            future: _getNetworkImages(),
+            future: _imageRepo.getNetworkImages(),
             builder: (
               BuildContext context,
               AsyncSnapshot<List<PixelfordImage>> snapshot,
