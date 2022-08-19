@@ -38,20 +38,20 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {});
   }
 
-  _getNetworkImages() async {
+  Future<List<PixelfordImage>> _getNetworkImages() async {
     var endpointUrl = Uri.parse('https://pixelford.com/api2/images');
     final response = await http.get(endpointUrl);
 
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       final List<dynamic> decodedList = jsonDecode(response.body) as List;
 
       final List<PixelfordImage> imageList = decodedList.map((listItem) {
         return PixelfordImage.fromJson(listItem);
       }).toList();
       print(imageList[1].urlFullSize);
-    }
-    else {
-      print('Something went wrong. HTTP code: ${response.statusCode}');
+      return imageList;
+    } else {
+      throw Exception('Connection not successful');
     }
   }
 
@@ -74,7 +74,8 @@ class _ChatPageState extends State<ChatPage> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/'); //Navigator.popAndPushNamed(context, '/'); can also be used
+                Navigator.pushReplacementNamed(context,
+                    '/'); //Navigator.popAndPushNamed(context, '/'); can also be used
                 // print('Logout icon pressed!');
               },
               icon: const Icon(Icons.logout))
@@ -82,17 +83,27 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
+          FutureBuilder<List<PixelfordImage>>(
+            future: _getNetworkImages(),
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<PixelfordImage>> snapshot,
+            ) {
+              if (snapshot.hasData) return Image.network(snapshot.data![0].urlSmallSize);
+
+              return const CircularProgressIndicator();
+            },
+          ),
           Expanded(
-            child: ListView.builder(
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  return ChatBubble(
-                    alignment:
-                    _messages[index].author.userName == 'Hubert'
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
-                    entity: _messages[index]);
-                })),
+              child: ListView.builder(
+                  itemCount: _messages.length,
+                  itemBuilder: (context, index) {
+                    return ChatBubble(
+                        alignment: _messages[index].author.userName == 'Hubert'
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        entity: _messages[index]);
+                  })),
           ChatInput(
             onSubmit: onMessageSent,
           ),
