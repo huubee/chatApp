@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:chat_app/models/chat_message_entity.dart';
-import 'package:chat_app/repo/image_repository.dart';
-import 'package:chat_app/models/image_model.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:chat_app/widgets/chat_input.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +35,6 @@ class _ChatPageState extends State<ChatPage> {
     _messages.add(entity);
     setState(() {});
   }
-
-  final ImageRepository _imageRepo = ImageRepository();
-
   @override
   void initState() {
     _loadInitialMessages();
@@ -67,17 +62,6 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          FutureBuilder<List<PixelfordImage>>(
-            future: _imageRepo.getNetworkImages(),
-            builder: (
-              BuildContext context,
-              AsyncSnapshot<List<PixelfordImage>> snapshot,
-            ) {
-              if (snapshot.hasData) return Image.network(snapshot.data![0].urlSmallSize);
-
-              return const CircularProgressIndicator();
-            },
-          ),
           Expanded(
               child: ListView.builder(
                   itemCount: _messages.length,
