@@ -3,7 +3,12 @@ import 'package:chat_app/repo/image_repository.dart';
 import 'package:flutter/material.dart';
 
 class NetworkImagePickerBody extends StatelessWidget {
-  NetworkImagePickerBody({Key? key}) : super(key: key);
+  final Function(String) onImageSelected;
+
+  NetworkImagePickerBody({
+    Key? key,
+    required this.onImageSelected,
+  }) : super(key: key);
 
   final ImageRepository _imageRepo = ImageRepository();
 
@@ -24,7 +29,11 @@ class NetworkImagePickerBody extends StatelessWidget {
                 mainAxisSpacing: 5.0,
               ),
               itemBuilder: (context, index) {
-                return Image.network(snapshot.data![index].urlSmallSize);
+                return GestureDetector(
+                    onTap: () {
+                      onImageSelected(snapshot.data![index].urlFullSize);
+                    },
+                    child: Image.network(snapshot.data![index].urlSmallSize));
               });
         }
 
