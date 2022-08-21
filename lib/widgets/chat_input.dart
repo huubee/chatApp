@@ -1,6 +1,8 @@
 import 'package:chat_app/models/chat_message_entity.dart';
+import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/widgets/picker_body.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChatInput extends StatefulWidget {
   final Function(ChatMessageEntity) onSubmit;
@@ -19,14 +21,15 @@ class _ChatInputState extends State<ChatInput> {
   void onSendButtonPressed() {
     //print('ChatMessage: ${chatMessageController.text}');
     final newChatMessage = ChatMessageEntity(
-        text: chatMessageController.text,
-        id: '244',
-        createdAt: DateTime
-            .now()
-            .millisecondsSinceEpoch,
-        author: Author(userName: 'Hubert'));
+      text: chatMessageController.text,
+      id: '244',
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      author: Author(
+        userName: context.read<AuthService>().getUserName(),
+      ),
+    );
 
-    if(_selectedImageUrl.isNotEmpty) {
+    if (_selectedImageUrl.isNotEmpty) {
       newChatMessage.imageUrl = _selectedImageUrl;
     }
     widget.onSubmit(newChatMessage);
@@ -52,10 +55,16 @@ class _ChatInputState extends State<ChatInput> {
           IconButton(
             onPressed: () {
               showModalBottomSheet(
-                // isScrollControlled: true,
+                  //const  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: const Radius.circular(20),
+                    ),
+                  ),
                   context: context,
                   builder: (BuildContext context) {
-                    return NetworkImagePickerBody(onImageSelected: onImagePicked);
+                    return NetworkImagePickerBody(
+                        onImageSelected: onImagePicked);
                   });
             },
             icon: const Icon(
@@ -65,25 +74,28 @@ class _ChatInputState extends State<ChatInput> {
           ),
           Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 6,
-                    minLines: 1,
-                    controller: chatMessageController,
-                    textCapitalization: TextCapitalization.sentences,
-                    style: const TextStyle(color: Colors.white, fontSize: 22.0),
-                    decoration: const InputDecoration(
-                        hintText: 'Enter your message here!',
-                        hintStyle: TextStyle(
-                            color: Colors.deepPurple, fontSize: 17.0),
-                        border: InputBorder.none),
-                  ),
-                  if(_selectedImageUrl.isNotEmpty)
-                  Image.network(_selectedImageUrl, width: 125,),
-                ],
-              )),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: 6,
+                minLines: 1,
+                controller: chatMessageController,
+                textCapitalization: TextCapitalization.sentences,
+                style: const TextStyle(color: Colors.white, fontSize: 22.0),
+                decoration: const InputDecoration(
+                    hintText: 'Enter your message here!',
+                    hintStyle:
+                        TextStyle(color: Colors.deepPurple, fontSize: 17.0),
+                    border: InputBorder.none),
+              ),
+              if (_selectedImageUrl.isNotEmpty)
+                Image.network(
+                  _selectedImageUrl,
+                  width: 125,
+                ),
+            ],
+          )),
           IconButton(
             onPressed: onSendButtonPressed,
             icon: const Icon(

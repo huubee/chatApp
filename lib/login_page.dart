@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Column(
             children: [
-              Flexible(
+              Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,9 +55,12 @@ class LoginPage extends StatelessWidget {
                           letterSpacing: 0.8),
                     ),
                     verticalSpacing(10.0),
-                    Image.asset(
-                      'assets/illustration.png',
-                      height: 100.0,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        'assets/illustration.png',
+                        // height: 100.0,
+                      ),
                     ),
                     verticalSpacing(24.0),
                     Form(
@@ -136,33 +139,31 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Flexible(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SocialMediaButton.twitter(
-                            onTap: () async {
-                              // ignore: deprecated_member_use
-                              if (!await launch('https://www.twitter.com')) {
-                                throw 'Could not launch URL';
-                              }
-                              // to do open browser to URL
-                            },
-                          ),
-                          SocialMediaButton.facebook(
-                            onTap: () async {
-                              // ignore: deprecated_member_use
-                              if (!await launch('https://www.facebook.com')) {
-                                throw 'Could not launch URL';
-                              }
-                              // to do open browser to URL
-                            },
-                          ),
-                          SocialMediaButton.linkedin(onTap: () {
-                            _launchUrl();
-                          }),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SocialMediaButton.twitter(
+                          onTap: () async {
+                            // ignore: deprecated_member_use
+                            if (!await launch('https://www.twitter.com')) {
+                              throw 'Could not launch URL';
+                            }
+                            // to do open browser to URL
+                          },
+                        ),
+                        SocialMediaButton.facebook(
+                          onTap: () async {
+                            // ignore: deprecated_member_use
+                            if (!await launch('https://www.facebook.com')) {
+                              throw 'Could not launch URL';
+                            }
+                            // to do open browser to URL
+                          },
+                        ),
+                        SocialMediaButton.linkedin(onTap: () {
+                          _launchUrl();
+                        }),
+                      ],
                     )
                   ],
                 ),

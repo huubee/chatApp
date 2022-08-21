@@ -22,6 +22,7 @@ class NetworkImagePickerBody extends StatelessWidget {
       ) {
         if (snapshot.hasData) {
           return GridView.builder(
+            padding: const EdgeInsets.all(15),
               itemCount: snapshot.data!.length,
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
