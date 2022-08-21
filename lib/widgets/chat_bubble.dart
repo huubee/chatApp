@@ -16,7 +16,6 @@ class ChatBubble extends StatelessWidget {
         entity.author.userName == context.read<AuthService>().getUserName();
     double borderRadius = 12.0;
     double textPadding = 12.0;
-    print('entity.author.userName: ${entity.author.userName} + ${context.read<AuthService>().getUserName().toString()}');
 
     return Align(
       alignment: alignment,
