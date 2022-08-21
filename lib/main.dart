@@ -17,7 +17,7 @@ void main() async {
   // native platform code for initializing SharedPreferences.
   await AuthService.init();
   runApp(
-    Provider(
+    ChangeNotifierProvider(
       create: (BuildContext context) => AuthService(),
       child: const ChatApp(),
     ),
@@ -41,7 +41,7 @@ class ChatApp extends StatelessWidget {
       title: 'Flutter Chat App',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.blue,
           foregroundColor: Colors.black45,
         ),

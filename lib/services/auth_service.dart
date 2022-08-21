@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
+class AuthService extends ChangeNotifier {
 
   // The init() method needs to be called from somewhere.
   // It has to be called before the first widget is rendered.
@@ -32,5 +33,10 @@ class AuthService {
   // getUserName - class method
   String? getUserName() {
     return _prefs.getString('userName') ?? 'DefaultValue';
+  }
+
+  void updateUserName(String newName) {
+    _prefs.setString('userName', newName);
+    notifyListeners();
   }
 }
