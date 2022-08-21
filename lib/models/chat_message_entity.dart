@@ -28,6 +28,6 @@ class Author {
   Author({required this.userName});
 
   factory Author.fromJson(Map<String, dynamic> json) {
-    return Author(userName: json['username']);
+    return Author(userName: json["username"]);
   }
 }

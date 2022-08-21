@@ -56,9 +56,9 @@ class _ChatPageState extends State<ChatPage> {
         actions: [
           IconButton(
               onPressed: () {
+                context.read<AuthService>().logoutUser();
                 Navigator.pushReplacementNamed(context,
                     '/'); //Navigator.popAndPushNamed(context, '/'); can also be used
-                // print('Logout icon pressed!');
               },
               icon: const Icon(Icons.logout))
         ],

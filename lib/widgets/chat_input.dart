@@ -18,14 +18,14 @@ class _ChatInputState extends State<ChatInput> {
 
   final chatMessageController = TextEditingController();
 
-  void onSendButtonPressed() {
-    //print('ChatMessage: ${chatMessageController.text}');
+  void onSendButtonPressed() async{
+    String? userNameFromCache = await context.read<AuthService>().getUserName();
     final newChatMessage = ChatMessageEntity(
       text: chatMessageController.text,
       id: '244',
       createdAt: DateTime.now().millisecondsSinceEpoch,
       author: Author(
-        userName: context.read<AuthService>().getUserName(),
+        userName:  userNameFromCache!,
       ),
     );
 
