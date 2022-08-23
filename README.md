@@ -1,5 +1,7 @@
 # chat_app
 
+app accompanying a LinkedIn course - Flutter Essential Training: Build for Multiple Platforms
+
 A new Flutter project.
 
 ## Getting Started
